@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const name = useRef();
   const email = useRef();
@@ -12,8 +13,12 @@ const Login = () => {
 
   const handleValidateFrom = () => {
     //validation form
-    const message = ValidationForm(email.current.value, password.current.value);
-    console.log(message);
+    const message = ValidationForm(
+      email.current.value,
+      password.current.value,
+      name?.current?.value
+    );
+    setErrorMessage(message);
   };
 
   const handleToggleForm = () => {
@@ -53,6 +58,7 @@ const Login = () => {
           placeholder="Password"
           className="m-3 p-3 bg-zinc-800 font-bold outline-none text-white rounded-lg"
         />
+        <p className="text-red-700 font-bold p-2">{errorMessage}</p>
         <button
           className="m-3 p-3 bg-red-500 rounded-lg"
           onClick={handleValidateFrom}
