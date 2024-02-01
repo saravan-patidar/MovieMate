@@ -2,10 +2,19 @@ import Header from "./Header";
 import bgImg from "../images/bg-img.jpg";
 import { ValidationForm } from "../utils/validate";
 import { useRef, useState } from "react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useNavigate } from "react-router-dom";
+import UserLogo from "../images/avatar.avif";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
+  const navigate = useNavigate();
 
   const name = useRef();
   const email = useRef();
@@ -18,7 +27,51 @@ const Login = () => {
       password.current.value,
       name?.current?.value
     );
+    console.log(message);
     setErrorMessage(message);
+
+    if (message) return;
+
+    if (!isSignIn) {
+      console.log("sign Up");
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: { UserLogo },
+          })
+            .then(() => {})
+            .catch((err) => {
+              setErrorMessage(err.message);
+            });
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          navigate("/browse");
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(errorCode + "-" + errorMessage);
+        });
+    }
   };
 
   const handleToggleForm = () => {

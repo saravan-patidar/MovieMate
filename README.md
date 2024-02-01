@@ -10,6 +10,9 @@
 - Login / Sign Up Form
 - Form Validation
 - useRef
+- Install firebase and setup
+- depoly app on firebase
+- create user authentictaion
 
 ### Features
 
