@@ -1,26 +1,47 @@
 import Logo from "../images/netflixlogo.png";
-import { useSelector } from "react-redux";
-import avatar from "../images/avatar.avif";
-import { useState } from "react";
-import { deleteUser, signOut } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
+// import avatar from "../images/avatar.avif";
+import { useEffect, useState } from "react";
+import { deleteUser, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
+import { addUser, removeUser } from "../utils/userSlice";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
   const [isShown, setIsShown] = useState(false);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid: uid,
+            email: email,
+            displayName: displayName,
+            photoURL: photoURL,
+          })
+        );
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+    return () => unsubscribe();
+  }, []);
+
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        navigate("/");
-      })
+      .then(() => {})
       .catch((err) => err);
   };
   const handleDeleteAccount = () => {
     deleteUser(auth.currentUser)
-      .then(() => navigate("/"))
+      .then(() => {})
       .catch((error) => console.log(error));
   };
   return (
@@ -36,7 +57,7 @@ const Header = () => {
           }}
           className="flex items-center relative cursor-pointer"
         >
-          <img src={avatar} alt="img" className="w-8 rounded-md " />
+          <img src={user.photoURL} alt="img" className="w-8 rounded-md " />
           <span className="text-white rounded-full h-6 ">▼</span>
           {isShown && (
             <ul className="text-slate-400 w-28  absolute -right-5 top-10 border border-slate-200 hover:border-gray-600 font-semibold rounded-lg">
