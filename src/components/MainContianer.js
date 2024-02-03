@@ -7,10 +7,10 @@ const MainContainer = () => {
   useNowPlaying();
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
   if (!movies) return;
-  console.log(movies[1]);
+  // console.log(movies[1]);
   const { original_title, overview, id } = movies[1];
   return (
-    <div>
+    <div className="aspect-video w-full h-screen">
       <VideoTitle title={original_title} overview={overview} />
       <VideoBackground movieId={id} />
     </div>

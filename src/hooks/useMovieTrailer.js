@@ -18,7 +18,7 @@ const useMovieTrailer = (movieId) => {
     // console.log(json);
     // const filterData = json.results.filter((video) => (video.type = "Trailer"));
     // console.log(filterData);
-    dispatch(addMovieTrailers(json.results[0]));
+    dispatch(addMovieTrailers(json.results[1]));
   };
 };
 export default useMovieTrailer;
