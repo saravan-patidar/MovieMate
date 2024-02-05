@@ -1,20 +1,29 @@
 import { useSelector } from "react-redux";
-import MovieListCont from "./MovieListCont";
+import MovieListCont, { withTrending } from "./MovieListCont";
+import "swiper/css";
+import "swiper/css/navigation";
+import useTopTrending from "../hooks/useTopTrending";
 
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
-  // console.log(movies);
+  const trending = useSelector((store) => store.trending);
+  // console.log(trendingMovie);
+  useTopTrending();
   return (
-    <div>
-      <MovieListCont title={"Now Playing"} movies={movies?.nowPlayingMovies} />
-      <MovieListCont title={"Trending"} movies={movies?.nowPlayingMovies} />
-    </div>
+    <>
+      <div className="bg-black">
+        <MovieListCont
+          type={null}
+          title={"Now Playing"}
+          movies={movies?.nowPlayingMovies}
+        />
+        <MovieListCont
+          type="trending"
+          title={"Top 10 Trending Movies"}
+          movies={trending?.trendingMovie}
+        />
+      </div>
+    </>
   );
 };
 export default SecondaryContainer;
-/**
- * secondary container
- *    movieList cont
- *      - title
- *      - cards *n
- */
