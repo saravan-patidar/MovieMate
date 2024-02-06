@@ -8,11 +8,15 @@ const trendingSlice = createSlice({
   reducers: {
     addTrendingMovies: (state, action) => {
       // state.trendingMovie = action.payload;
-      const data = action.payload;
-      state.trendingMovie = data.slice(0, 10);
+      const { trendingType, trendingData } = action.payload;
+      state[trendingType] = trendingData.slice(0, 10);
+    },
+    addTVShow: (state, action) => {
+      const { trendingType, trendingData } = action.payload;
+      state[trendingType] = trendingData;
     },
   },
 });
 
-export const { addTrendingMovies } = trendingSlice.actions;
+export const { addTrendingMovies, addTVShow } = trendingSlice.actions;
 export default trendingSlice.reducer;

@@ -2,13 +2,11 @@ import { useSelector } from "react-redux";
 import MovieListCont, { withTrending } from "./MovieListCont";
 import "swiper/css";
 import "swiper/css/navigation";
-import useTopTrending from "../hooks/useTopTrending";
 
 const SecondaryContainer = () => {
   const movies = useSelector((store) => store.movies);
   const trending = useSelector((store) => store.trending);
-  // console.log(trendingMovie);
-  useTopTrending();
+
   return (
     <>
       <div className="bg-black">
@@ -21,6 +19,21 @@ const SecondaryContainer = () => {
           type="trending"
           title={"Top 10 Trending Movies"}
           movies={trending?.trendingMovie}
+        />
+        <MovieListCont
+          type="animation"
+          title={"Animations Movies"}
+          movies={movies?.animation}
+        />
+        <MovieListCont
+          type="trending"
+          title={"Top 10 Trending TV Series"}
+          movies={trending?.trendingTV}
+        />
+        <MovieListCont
+          type="tv"
+          title={"Popular TV Series"}
+          movies={trending?.TVpopular}
         />
       </div>
     </>

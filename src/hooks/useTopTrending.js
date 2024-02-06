@@ -1,22 +1,28 @@
 import { useEffect } from "react";
-import { API_OPTION } from "../utils/constants";
+import { API_OPTION, TMDB_API_URL } from "../utils/constants";
 import { useDispatch } from "react-redux";
-import { addTrendingMovies } from "../utils/trendingSlice";
+import { addTrendingMovies, addTVShow } from "../utils/trendingSlice";
 
-const useTopTrending = () => {
+const useTopTrending = (endUrl, trendingType, name) => {
   const dispatch = useDispatch();
   useEffect(() => {
     fetchData();
   }, []);
 
   const fetchData = async () => {
-    const data = await fetch(
-      "https://api.themoviedb.org/3/trending/movie/day?language=en-US",
-      API_OPTION
-    );
+    const data = await fetch(`${TMDB_API_URL}/${name}/${endUrl}`, API_OPTION);
     const json = await data.json();
-    dispatch(addTrendingMovies(json.results));
-    console.log(json.results.slice(0, 10));
+    name === "trending"
+      ? dispatch(
+          addTrendingMovies({ trendingType, trendingData: json.results })
+        )
+      : dispatch(addTVShow({ trendingType, trendingData: json.results }));
   };
 };
 export default useTopTrending;
+// https://api.themoviedb.org/3/movie/popular
+// "https://api.themoviedb.org/3/movie/now_playing?"
+//  https://api.themoviedb.org/3/movie/movieId/videos
+// https://api.themoviedb.org/3/trending/movie/day
+// https://api.themoviedb.org/3/trending/tv/day
+// https://api.themoviedb.org/3/tv/popular

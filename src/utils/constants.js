@@ -8,4 +8,39 @@ export const API_OPTION = {
 };
 
 export const CDN_API = "https://image.tmdb.org/t/p/w500";
-export const TMDB_API_URL = "https://api.themoviedb.org/3/movie/";
+export const TMDB_API_URL = "https://api.themoviedb.org/3";
+
+export const MOVIES = {
+  nowPlaying: {
+    endUrl: "now_playing",
+    type: "nowPlayingMovies",
+  },
+  popular: {
+    endUrl: "popular",
+    type: "popular",
+  },
+};
+
+export const TRENDING = {
+  name: "trending",
+  movies: {
+    endUrl: "movie/day",
+    type: "trendingMovie",
+  },
+  tv: {
+    endUrl: "tv/day",
+    type: "trendingTV",
+  },
+};
+
+export const TV_SERIES = {
+  TVname: "tv",
+  TVpopular: {
+    endUrl: "popular",
+    type: "TVpopular",
+  },
+  rated: {
+    endUrl: "top_rated",
+    type: "TVrated",
+  },
+};

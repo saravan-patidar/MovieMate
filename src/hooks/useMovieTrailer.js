@@ -10,7 +10,10 @@ const useMovieTrailer = (movieId) => {
     fetchData();
   }, []);
   const fetchData = async () => {
-    const data = await fetch(TMDB_API_URL + movieId + "/videos", API_OPTION);
+    const data = await fetch(
+      `${TMDB_API_URL}/movie/${movieId}/videos`,
+      API_OPTION
+    );
     const json = await data.json();
     // console.log(json);
     // const filterData = json.results.filter((video) => (video.type = "Trailer"));
