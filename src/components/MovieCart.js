@@ -11,7 +11,6 @@ const MovieCart = ({ poster }) => {
 
 export const withTrending = (MovieCart) => {
   return (props) => {
-    console.log(props);
     const { index } = props;
     return (
       <div className=" relative border">
