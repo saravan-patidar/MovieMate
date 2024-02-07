@@ -5,6 +5,9 @@ import { deleteUser, onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../utils/firebase";
 import { useNavigate } from "react-router-dom";
 import { addUser, removeUser } from "../utils/userSlice";
+import { toggleGptPage } from "../utils/gptSlice";
+import { MULTI_LANG } from "../utils/constants";
+import { changeLanguage } from "../utils/configSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -43,6 +46,16 @@ const Header = () => {
       .then(() => {})
       .catch((error) => console.log(error));
   };
+
+  const handleGptPage = () => {
+    // toggle featurd to turn page
+    dispatch(toggleGptPage());
+  };
+
+  const handleLanguage = (e) => {
+    dispatch(changeLanguage(e.target.value));
+  };
+
   return (
     <div className=" w-screen h-20  fixed bg-black bg-opacity-70 shadow-2xl  top-0 flex justify-between items-center px-8 py-2 z-20  ">
       <div className=" ">
@@ -54,6 +67,19 @@ const Header = () => {
           <div className="text-white bg-black bg-opacity-40 p-1  rounded-md shadow-lg capitalize font-semibold">
             {user.displayName}
           </div>
+          <select onChange={handleLanguage}>
+            {MULTI_LANG.map((lang) => (
+              <option key={lang.langKey} value={lang.langKey}>
+                {lang.name}
+              </option>
+            ))}
+          </select>
+          <button
+            className="p-1 m-2 bg-indigo-800 rounded-lg hover:bg-indigo-950"
+            onClick={handleGptPage}
+          >
+            Gpt Search
+          </button>
           <div
             onClick={() => {
               setIsShown(!isShown);

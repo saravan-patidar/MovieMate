@@ -44,3 +44,9 @@ export const TV_SERIES = {
     type: "TVrated",
   },
 };
+
+export const MULTI_LANG = [
+  { langKey: "en", name: "English" },
+  { langKey: "hi", name: "Hindi" },
+  { langKey: "sp", name: "Spanish" },
+];

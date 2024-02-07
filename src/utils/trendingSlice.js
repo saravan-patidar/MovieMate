@@ -7,7 +7,6 @@ const trendingSlice = createSlice({
   },
   reducers: {
     addTrendingMovies: (state, action) => {
-      // state.trendingMovie = action.payload;
       const { trendingType, trendingData } = action.payload;
       state[trendingType] = trendingData.slice(0, 10);
     },

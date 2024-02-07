@@ -25,15 +25,6 @@ const Browse = () => {
       <MainContainer />
       <SecondaryContainer />
     </div>
-    /**
-     * Main Container
-     *  - Video title
-     *  - Video Background
-     *
-     * secondary Conatiner
-     *  - MovieList* n
-     *  - card *n
-     */
   );
 };
 export default Browse;
