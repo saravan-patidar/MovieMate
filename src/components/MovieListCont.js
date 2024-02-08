@@ -5,6 +5,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "../style.css";
+import MovieCardHover from "./MovieCardHover";
 
 const MovieListCont = ({ type, title, movies }) => {
   const TopTrending = withTrending(MovieCart);
@@ -12,9 +13,10 @@ const MovieListCont = ({ type, title, movies }) => {
     movies && (
       <div className="ml-10 p-3">
         <h2 className="text-white text-2xl font-semibold py-1 m-1">{title}</h2>
+        <MovieCardHover />
         <Swiper
           modules={[Navigation]}
-          spaceBetween={12}
+          spaceBetween={18}
           slidesPerView="auto"
           slidesPerGroup={1}
           navigation={true}
@@ -26,12 +28,12 @@ const MovieListCont = ({ type, title, movies }) => {
             <SwiperSlide
               key={movie.id}
               style={{ width: type === "trending" ? "14rem" : "8rem " }}
-              className=" cursor-pointer flex-grow-0 flex-shrink-0 overflow-hidden rounded my-2"
+              className=" flex-grow-0 flex-shrink-0 overflow-hidden rounded my-2"
             >
               {type === "trending" ? (
-                <TopTrending index={index + 1} poster={movie.poster_path} />
+                <TopTrending index={index + 1} data={movie} />
               ) : (
-                <MovieCart poster={movie.poster_path} />
+                <MovieCart data={movie} />
               )}
             </SwiperSlide>
           ))}

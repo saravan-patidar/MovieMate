@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 const MainContainer = () => {
   const movies = useSelector((store) => store.movies?.nowPlayingMovies);
   if (!movies) return;
-  // console.log(movies[1]);
   const { original_title, overview, id } = movies[1];
   return (
     <div className="aspect-video w-full ">

@@ -4,6 +4,7 @@ const trendingSlice = createSlice({
   name: "trending",
   initialState: {
     trendingMovie: null,
+    trendingTV: null,
   },
   reducers: {
     addTrendingMovies: (state, action) => {

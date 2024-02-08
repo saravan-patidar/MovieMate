@@ -1,7 +1,7 @@
 const lang = {
   en: {
     search: "Search",
-    gptPlaceHolder: "what do you want watch today?",
+    gptPlaceHolder: "what would you like to watch today?",
   },
   hi: {
     search: "",

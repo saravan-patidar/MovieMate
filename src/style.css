@@ -34,3 +34,6 @@
 .swiper-button-prev:hover {
   color: #ed0909;
 }
+.swiper-button-disabled {
+  opacity: 0;
+}

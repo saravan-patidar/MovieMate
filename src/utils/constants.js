@@ -2,13 +2,14 @@ export const API_OPTION = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZjIwZGI3NGY0OWNmN2YyODg1ZjZkZWEwNmNhMmQ2ZSIsInN1YiI6IjY1YmNjYTRjZjAzMTc0MDE0OTY2ZTQ4MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.xR6-gIG_Ky10p9NFf34racmRL_NeiH7o0pUGKsuD8VE",
+    Authorization: "Bearer " + process.env.REACT_APP_TMDB_KEY,
   },
 };
 
 export const CDN_API = "https://image.tmdb.org/t/p/w500";
 export const TMDB_API_URL = "https://api.themoviedb.org/3";
+
+export const OPENAI_API = process.env.REACT_APP_OPENAI_API;
 
 export const MOVIES = {
   nowPlaying: {
@@ -35,6 +36,7 @@ export const TRENDING = {
 
 export const TV_SERIES = {
   TVname: "tv",
+
   TVpopular: {
     endUrl: "popular",
     type: "TVpopular",
@@ -44,6 +46,85 @@ export const TV_SERIES = {
     type: "TVrated",
   },
 };
+
+// export const GENRES = [
+//   {
+//     id: 28,
+//     name: "Action",
+//   },
+//   {
+//     id: 12,
+//     name: "Adventure",
+//   },
+//   {
+//     id: 16,
+//     name: "Animation",
+//   },
+//   {
+//     id: 35,
+//     name: "Comedy",
+//   },
+//   {
+//     id: 80,
+//     name: "Crime",
+//   },
+//   {
+//     id: 99,
+//     name: "Documentary",
+//   },
+//   {
+//     id: 18,
+//     name: "Drama",
+//   },
+//   {
+//     id: 10751,
+//     name: "Family",
+//   },
+//   {
+//     id: 14,
+//     name: "Fantasy",
+//   },
+//   {
+//     id: 36,
+//     name: "History",
+//   },
+//   {
+//     id: 27,
+//     name: "Horror",
+//   },
+//   {
+//     id: 10402,
+//     name: "Music",
+//   },
+//   {
+//     id: 9648,
+//     name: "Mystery",
+//   },
+//   {
+//     id: 10749,
+//     name: "Romance",
+//   },
+//   {
+//     id: 878,
+//     name: "Science Fiction",
+//   },
+//   {
+//     id: 10770,
+//     name: "TV Movie",
+//   },
+//   {
+//     id: 53,
+//     name: "Thriller",
+//   },
+//   {
+//     id: 10752,
+//     name: "War",
+//   },
+//   {
+//     id: 37,
+//     name: "Western",
+//   },
+// ];
 
 export const MULTI_LANG = [
   { langKey: "en", name: "English" },

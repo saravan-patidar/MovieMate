@@ -1,10 +1,26 @@
+import { useState } from "react";
 import { CDN_API } from "../utils/constants";
 
-const MovieCart = ({ poster }) => {
-  // console.log(poster);
+import MovieCardHover from "./MovieCardHover";
+
+const MovieCart = ({ data }) => {
+  const [isHoverd, setIsHoverd] = useState(false);
+  console.log(data);
+
+  if (!data) return;
+  const { poster_path } = data;
   return (
-    <div>
-      <img src={CDN_API + poster} alt="movie" className="w-40 rounded-lg" />
+    <div
+      className="hover:scale-110 duration-1000 cursor-pointer"
+      onMouseOver={() => setIsHoverd(true)}
+      onMouseLeave={() => setIsHoverd(false)}
+    >
+      {/* <img
+        src={CDN_API + poster_path}
+        alt="movie"
+        className="w-44 rounded-lg"
+      /> */}
+      {/* <MovieCardHover /> */}
     </div>
   );
 };

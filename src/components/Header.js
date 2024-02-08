@@ -13,6 +13,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((store) => store.user);
+  const showGpt = useSelector((store) => store.gpt.showGptSearch);
   const [isShown, setIsShown] = useState(false);
 
   useEffect(() => {
@@ -44,7 +45,7 @@ const Header = () => {
   const handleDeleteAccount = () => {
     deleteUser(auth.currentUser)
       .then(() => {})
-      .catch((error) => console.log(error));
+      .catch((error) => error);
   };
 
   const handleGptPage = () => {
@@ -57,9 +58,9 @@ const Header = () => {
   };
 
   return (
-    <div className=" w-screen h-20  fixed bg-black bg-opacity-70 shadow-2xl  top-0 flex justify-between items-center px-8 py-2 z-20  ">
+    <div className=" w-screen h-20  fixed bg-black bg-opacity-95 shadow-2xl  top-0 flex justify-between items-center px-8 py-2 z-20  ">
       <div className=" ">
-        <img src={Logo} alt="logo" className="shadow-2xl h-16" />
+        <img src={Logo} alt="logo" className="shadow-2xl w-52" />
       </div>
 
       {user && (
@@ -67,18 +68,20 @@ const Header = () => {
           <div className="text-white bg-black bg-opacity-40 p-1  rounded-md shadow-lg capitalize font-semibold">
             {user.displayName}
           </div>
-          <select onChange={handleLanguage}>
-            {MULTI_LANG.map((lang) => (
-              <option key={lang.langKey} value={lang.langKey}>
-                {lang.name}
-              </option>
-            ))}
-          </select>
+          {showGpt && (
+            <select onChange={handleLanguage}>
+              {MULTI_LANG.map((lang) => (
+                <option key={lang.langKey} value={lang.langKey}>
+                  {lang.name}
+                </option>
+              ))}
+            </select>
+          )}
           <button
-            className="p-1 m-2 bg-indigo-800 rounded-lg hover:bg-indigo-950"
+            className="px-2 py-1 m-2 text-white bg-indigo-800 rounded-lg hover:bg-indigo-900 hover:text-red-500"
             onClick={handleGptPage}
           >
-            Gpt Search
+            {showGpt ? "Home Page" : "Gpt Search"}
           </button>
           <div
             onClick={() => {
@@ -87,7 +90,9 @@ const Header = () => {
             className="flex items-center relative cursor-pointer"
           >
             <img src={user.photoURL} alt="img" className="w-8 rounded-md " />
-            <span className="text-white rounded-full h-6 ">▼</span>
+            <span className="text-white rounded-full h-6 hover:text-red-700 ">
+              ▼
+            </span>
             {isShown && (
               <ul className="text-slate-400 w-28 py-2 absolute right-0 top-10 border border-slate-300 hover:border-gray-600 font-semibold rounded-lg">
                 {/* <li className="px-2 p-1 items-center flex hover:text-white">
