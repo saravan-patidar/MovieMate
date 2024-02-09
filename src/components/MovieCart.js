@@ -1,26 +1,64 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CDN_API } from "../utils/constants";
-
 import MovieCardHover from "./MovieCardHover";
+import { createPortal } from "react-dom";
 
 const MovieCart = ({ data }) => {
-  const [isHoverd, setIsHoverd] = useState(false);
-  console.log(data);
+  const refernce = useRef(null);
+  const [hovered, setHovered] = useState(false);
+  const [position, setPosition] = useState({
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+  });
+  const handleHover = () => {
+    if (data !== null) {
+      clearTimeout(timeOut);
 
-  if (!data) return;
+      timeOut = setTimeout(() => {
+        setHovered(true);
+        if (refernce.current) {
+          const triggerRect = refernce.current.getBoundingClientRect();
+          const offsetFromTop = triggerRect.top + window.scrollY;
+          const positionFromRight = window.innerWidth - triggerRect.right;
+          setPosition({
+            left: triggerRect.left,
+            right: positionFromRight,
+            top: offsetFromTop,
+            bottom: offsetFromTop,
+          });
+        }
+      }, 700);
+    }
+  };
+
+  const handleLeave = () => {
+    clearTimeout(timeOut);
+    setHovered(false);
+  };
+
+  if (!data) return null;
+  let timeOut;
+
   const { poster_path } = data;
   return (
     <div
-      className="hover:scale-110 duration-1000 cursor-pointer"
-      onMouseOver={() => setIsHoverd(true)}
-      onMouseLeave={() => setIsHoverd(false)}
+      ref={refernce}
+      className="hover:scale-110 duration-1000 cursor-pointer relative"
+      onMouseOver={handleHover}
+      onMouseLeave={handleLeave}
     >
-      {/* <img
+      <img
         src={CDN_API + poster_path}
         alt="movie"
-        className="w-44 rounded-lg"
-      /> */}
-      {/* <MovieCardHover /> */}
+        className="w-44 rounded-lg "
+      />
+      {hovered &&
+        createPortal(
+          <MovieCardHover movie={data} position={position} />,
+          document.body
+        )}
     </div>
   );
 };

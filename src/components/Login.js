@@ -11,6 +11,8 @@ import { auth } from "../utils/firebase";
 import UserLogo from "../images/avatar.avif";
 import { useDispatch } from "react-redux";
 import { addUser } from "../utils/userSlice";
+import signIn from "../Auth/authenticate";
+import signUpForm from "../Auth/register";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
@@ -20,8 +22,7 @@ const Login = () => {
   const name = useRef();
   const email = useRef();
   const password = useRef();
-
-  const handleValidateFrom = () => {
+  const handleValidateFrom = async () => {
     //validation form
     const message = ValidationForm(
       email.current.value,
@@ -33,49 +34,79 @@ const Login = () => {
     if (message) return;
 
     if (!isSignIn) {
-      createUserWithEmailAndPassword(
-        auth,
+      const userCredential = await signUpForm(
         email.current.value,
-        password.current.value
-      )
-        .then((userCredential) => {
-          const user = userCredential.user;
-          updateProfile(user, {
-            displayName: name.current.value,
-            photoURL: UserLogo,
-          })
-            .then(() => {
-              const { uid, email, displayName, photoURL } = auth.currentUser;
-              dispatch(
-                addUser({
-                  uid: uid,
-                  email: email,
-                  displayName: displayName,
-                  photoURL: photoURL,
-                })
-              );
-            })
-            .catch((error) => {
-              setErrorMessage(error.message);
-            });
+        password.current.value,
+        name.current.value
+      );
+      dispatch(
+        addUser({
+          uid: userCredential?.user?.uid,
+          email: userCredential?.user?.email,
+          password: userCredential?.user?.password,
+          displayName: userCredential?.user?.displayName,
+          photoURL: userCredential?.user?.photoURL,
         })
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + "-" + errorMessage);
-        });
+      );
+      switch (userCredential?.error?.code) {
+        case "auth/email-already-in-use":
+          setErrorMessage("Email you provided is already registered.");
+          break;
+
+        default:
+          setErrorMessage("Something went wrong with your credentials.");
+          break;
+      }
+      // createUserWithEmailAndPassword(
+      //   auth,
+      //   email.current.value,
+      //   password.current.value
+      // )
+      //   .then((userCredential) => {
+      //     const user = userCredential.user;
+      //     updateProfile(user, {
+      //       displayName: name.current.value,
+      //       photoURL: UserLogo,
+      //     })
+      //       .then(() => {
+      //         const { uid, email, displayName, photoURL } = auth.currentUser;
+      //         dispatch(
+      //           addUser({
+      //             uid: uid,
+      //             email: email,
+      //             displayName: displayName,
+      //             photoURL: photoURL,
+      //           })
+      //         );
+      //       })
+      //       .catch((error) => {
+      //         setErrorMessage(error.message);
+      //       });
+      //   })
+      //   .catch((error) => {
+      //     const errorCode = error.code;
+      //     const errorMessage = error.message;
+      //     console.log(errorCode);
+      //     setErrorMessage(errorCode + "-" + errorMessage);
+      //   });
     } else {
-      signInWithEmailAndPassword(
-        auth,
+      const userCredential = await signIn(
         email.current.value,
         password.current.value
-      )
-        .then(() => {})
-        .catch((error) => {
-          const errorCode = error.code;
-          const errorMessage = error.message;
-          setErrorMessage(errorCode + "-" + errorMessage);
-        });
+      );
+      switch (userCredential?.error?.code) {
+        case "auth/invalid-credential": {
+          setErrorMessage("Invalid login Credential !!");
+          break;
+        }
+        case "auth/user-disabled": {
+          setErrorMessage("Your account has been disabled!");
+          break;
+        }
+        default: {
+          setErrorMessage("Something went Wrong !!");
+        }
+      }
     }
   };
 

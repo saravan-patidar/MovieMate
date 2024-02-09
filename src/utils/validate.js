@@ -7,8 +7,7 @@ export const ValidationForm = (...props) => {
     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/.test(password);
   if (name === "") return "Please enter name";
   if (!isEmailValid) return "Email is not valid";
-  if (!passwordValid)
-    return "Password should be contain Uppercase, Symbol, Numeric";
+  if (!passwordValid) return "Password must be 6 characters like:User@123";
 
   return null;
 };
