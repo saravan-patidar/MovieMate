@@ -52,7 +52,7 @@ const MovieCart = ({ data }) => {
       <img
         src={CDN_API + poster_path}
         alt="movie"
-        className="w-44 rounded-lg "
+        className="w-24 md:w-44 rounded-lg "
       />
       {hovered &&
         createPortal(
@@ -67,11 +67,11 @@ export const withTrending = (MovieCart) => {
   return (props) => {
     const { index } = props;
     return (
-      <div className=" relative border-gray-900 border rounded-lg">
-        <div className="tr-number text-[200px] text-white w-full h-full flex justify-start items-center absolute left-0 ">
+      <div className=" md:w-auto relative border-gray-900 border rounded-lg">
+        <div className="tr-number text-[100px] md:text-[200px] text-white w-full h-full flex justify-start items-center absolute left-0 ">
           {index}
         </div>
-        <div className="w-32 ml-auto relative ">
+        <div className="w-24 md:w-32 ml-auto relative ">
           <MovieCart {...props} />
         </div>
       </div>

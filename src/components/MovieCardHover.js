@@ -17,7 +17,7 @@ const MovieCardHover = ({ movie, position }) => {
 
   return (
     <div
-      className=" w-[260px] h-[340px] rounded-lg m-auto my-10 bg-black text-white absolute  z-[999] hover-container"
+      className="hidden md:inline-block  w-[260px] h-[340px] rounded-lg m-auto my-10 bg-black text-white absolute z-[999] hover-container"
       style={handleStyle}
     >
       <div className="h-2/4 w-full ">

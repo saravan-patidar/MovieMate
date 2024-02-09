@@ -58,18 +58,21 @@ const Header = () => {
   };
 
   return (
-    <div className=" w-screen h-20  fixed bg-black bg-opacity-95 shadow-2xl  top-0 flex justify-between items-center px-8 py-2 z-20  ">
+    <div className="md:w-screen md:h-20 px-2 fixed bg-black bg-opacity-95 shadow-2xl  top-0 flex justify-between items-center md:px-8 md:py-2 z-20 left-0 right-0">
       <div className=" ">
-        <img src={Logo} alt="logo" className="shadow-2xl w-52" />
+        <img src={Logo} alt="logo" className="shadow-2xl  w-36 md:w-52" />
       </div>
 
       {user && (
         <div className="flex items-center gap-1">
-          <div className="text-white bg-black bg-opacity-40 p-1  rounded-md shadow-lg capitalize font-semibold">
+          <div className="hidden md:inline-block text-white bg-black bg-opacity-40 p-1  rounded-md shadow-lg capitalize font-semibold">
             {user.displayName}
           </div>
           {showGpt && (
-            <select onChange={handleLanguage}>
+            <select
+              onChange={handleLanguage}
+              className="bg-gray-800 text-white rounded-md outline-none"
+            >
               {MULTI_LANG.map((lang) => (
                 <option key={lang.langKey} value={lang.langKey}>
                   {lang.name}
@@ -78,10 +81,10 @@ const Header = () => {
             </select>
           )}
           <button
-            className="px-2 py-1 m-2 text-white bg-indigo-800 rounded-lg hover:bg-indigo-900 hover:text-red-500"
+            className="px-2 md:py-1 m-2 text-white bg-indigo-800 rounded-lg hover:bg-indigo-900 hover:text-red-500"
             onClick={handleGptPage}
           >
-            {showGpt ? "Home Page" : "Gpt Search"}
+            {showGpt ? "Home " : "Gpt Search"}
           </button>
           <div
             onClick={() => {
@@ -89,16 +92,20 @@ const Header = () => {
             }}
             className="flex items-center relative cursor-pointer"
           >
-            <img src={user.photoURL} alt="img" className="w-8 rounded-md " />
+            <img
+              src={user.photoURL}
+              alt="img"
+              className=" w-6 md:w-8 rounded-md "
+            />
             <span className="text-white rounded-full h-6 hover:text-red-700 ">
               ▼
             </span>
             {isShown && (
-              <ul className="text-slate-400 w-28 py-2 absolute right-0 top-10 border border-slate-300 hover:border-gray-600 font-semibold rounded-lg">
-                {/* <li className="px-2 p-1 items-center flex hover:text-white">
-                <span className="w-5 h-5 inline-block mr-1 rounded-md bg-rose-500 hover:text-white"></span>
-                {user.displayName}
-              </li> */}
+              <ul className="text-gray-300 w-28 py-2 absolute right-0 top-7 md:top-10 border border-slate-600 hover:border-gray-500 font-semibold rounded-lg bg-black bg-opacity-50 animate">
+                <li className="sm:hidden md:hidden px-2 p-1 items-center flex hover:text-white">
+                  <span className="w-5 h-5 inline-block mr-1 rounded-md bg-orange-500 hover:text-white"></span>
+                  {user.displayName}
+                </li>
                 <li className="px-2 p-1 items-center flex hover:text-white">
                   <span className="w-5 h-5 inline-block mr-1 rounded-md bg-blue-500 hover:text-white"></span>
                   UserTest

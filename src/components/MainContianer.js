@@ -7,7 +7,7 @@ const MainContainer = () => {
   if (!movies) return;
   const { original_title, overview, id } = movies[1];
   return (
-    <div className="aspect-video w-full ">
+    <div className="md:aspect-video relative ">
       <VideoTitle title={original_title} overview={overview} />
       <VideoBackground movieId={id} />
     </div>

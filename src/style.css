@@ -1,7 +1,12 @@
 :root {
   --swiper-navigation-size: 36px;
 }
-
+.trendcss {
+  width: 14rem;
+}
+.slide {
+  width: 9rem;
+}
 .swiper-button-prev,
 .swiper-button-next {
   color: white;
@@ -46,4 +51,35 @@
 
 .hover-container:hover {
   transition: 5s ease-in-out;
+}
+
+.animate {
+  animation: sideView;
+  animation-timing-function: ease-in-out;
+  animation-duration: 1000ms;
+}
+.aspectRatio {
+  aspect-ratio: 5/3;
+}
+@keyframes sideView {
+  0% {
+    right: -100px;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .slide {
+    width: 6rem;
+  }
+  .trendcss {
+    width: 9rem;
+  }
+
+  .swiper:hover .swiper-button-next,
+  .swiper:hover .swiper-button-prev {
+    display: none;
+  }
 }
