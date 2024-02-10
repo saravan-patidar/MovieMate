@@ -2,22 +2,17 @@ import Header from "./Header";
 import bgImg from "../images/bg-img.jpg";
 import { ValidationForm } from "../utils/validate";
 import { useRef, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from "firebase/auth";
-import { auth } from "../utils/firebase";
-import UserLogo from "../images/avatar.avif";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../utils/userSlice";
 import signIn from "../Auth/authenticate";
 import signUpForm from "../Auth/register";
+import lang from "../utils/languageConstants";
 
 const Login = () => {
   const [isSignIn, setIsSignIn] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
   const dispatch = useDispatch();
+  const langKey = useSelector((store) => store.config.lang);
 
   const name = useRef();
   const email = useRef();
@@ -113,38 +108,39 @@ const Login = () => {
   const handleToggleForm = () => {
     setIsSignIn(!isSignIn);
   };
+  console.log(lang[langKey]?.signIn, lang[langKey]?.now);
   return (
     <div>
       <Header />
       <div className=" h-screen w-screen">
-        <div className="w-full bg-black h-full absolute bg-opacity-65"></div>
+        <div className="w-full object-cover bg-black h-full absolute bg-opacity-40 md:bg-opacity-65"></div>
         <img src={bgImg} alt="bg-img" className="h-full w-full" />
       </div>
       <form
         onSubmit={(e) => e.preventDefault()}
-        className="absolute w-4/12 mx-auto left-2/4 top-2/4 -translate-y-2/4 -translate-x-2/4 bg-black px-10 py-5 flex flex-col bg-opacity-70 rounded-lg"
+        className="sm:min-w-96 absolute w-[95%] md:w-4/12 mx-auto left-2/4 top-2/4 -translate-y-2/4 -translate-x-2/4 bg-black px-5 md:px-10 py-5 flex flex-col bg-opacity-70 rounded-lg"
       >
         <h1 className="font-bold text-white text-3xl text-center m-2">
-          {isSignIn ? "Sign In" : "Sign Up"}
+          {isSignIn ? lang[langKey]?.signIn : lang[langKey]?.signUP}
         </h1>
         {!isSignIn && (
           <input
             ref={name}
             type="text"
-            placeholder="Full Name"
+            placeholder={lang[langKey]?.fname}
             className="m-3 p-3 bg-zinc-800 font-bold outline-none text-white rounded-lg"
           />
         )}
         <input
           ref={email}
           type="text"
-          placeholder="Email Address"
+          placeholder={lang[langKey]?.Email}
           className="m-3 p-3 bg-zinc-800 font-bold outline-none text-white rounded-lg"
         />
         <input
           ref={password}
           type="password"
-          placeholder="Password"
+          placeholder={lang[langKey]?.pass}
           className="m-3 p-3 bg-zinc-800 font-bold outline-none text-white rounded-lg"
         />
         <p className="text-red-700 font-bold p-2">{errorMessage}</p>
@@ -152,19 +148,24 @@ const Login = () => {
           className="m-3 p-3 bg-red-500 rounded-lg"
           onClick={handleValidateFrom}
         >
-          {isSignIn ? "Sign In" : "Sign Up"}
+          {isSignIn ? lang[langKey]?.signIn : lang[langKey]?.signUP}
         </button>
 
         {isSignIn && (
           <span className="text-white mx-3 my-2 cursor-pointer hover:underline w-36 p-1 ">
-            Forget Password?
+            {lang[langKey]?.forgetPass}
           </span>
         )}
 
         <div className="text-white m-3 py-3">
-          {isSignIn ? "New to Netflix? " : "Already User? "}
-          <span onClick={handleToggleForm} className="underline cursor-pointer">
-            {isSignIn ? "SignUp Now" : "SignIn Now"}
+          {isSignIn ? lang[langKey]?.netToFlix : lang[langKey]?.already}
+          <span
+            onClick={handleToggleForm}
+            className="underline cursor-pointer hover:text-red-500"
+          >
+            {isSignIn
+              ? lang[langKey]?.signIn + " " + lang[langKey]?.now
+              : lang[langKey]?.signUP + " " + lang[langKey]?.now}
           </span>
         </div>
       </form>

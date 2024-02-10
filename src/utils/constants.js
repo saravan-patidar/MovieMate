@@ -130,4 +130,8 @@ export const MULTI_LANG = [
   { langKey: "en", name: "English" },
   { langKey: "hi", name: "Hindi" },
   { langKey: "sp", name: "Spanish" },
+  { langKey: "kor", name: "Korean" },
+  { langKey: "russ", name: "Russain" },
+  { langKey: "bhoj", name: "Bhojpuri" },
+  { langKey: "guj", name: "Gujarati" },
 ];

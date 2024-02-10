@@ -2,9 +2,11 @@ import { FaInfoCircle, FaPlay } from "react-icons/fa";
 
 const VideoTitle = ({ title, overview }) => {
   return (
-    <div className="absolute aspectRatio sm:aspect-video text-white px-5 py-24 sm:px-20 sm:py-60 md:px-20 md:py-60 bg-black bg-opacity-30 w-full h-full ">
+    <div className="absolute aspectRatio sm:aspect-video text-white px-5 py-24 sm:px-20 sm:py-60 md:px-20 md:py-60 bg-black bg-opacity-30 md:bg-opacity-60 w-full h-full ">
       <h1 className="font-bold text-2xl md:text-6xl p-2">{title}</h1>
-      <p className="hidden md:inline-block p-2 w-2/5">{overview}</p>
+      <p className="hidden sm:inline-block p-2 sm:w-full md:w-2/5 text-balance ">
+        {overview}
+      </p>
       <div className="flex">
         <button className="p-1 md:py-2 md:px-5 rounded-lg font-bold text-sm md:text-lg bg-white text-black m-2 hover:bg-opacity-80 flex items-center md:gap-2">
           <FaPlay className="size-3 md:size-auto" />
