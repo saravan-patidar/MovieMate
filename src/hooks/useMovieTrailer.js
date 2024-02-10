@@ -7,16 +7,16 @@ const useMovieTrailer = (movieId) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    const fetchData = async () => {
+      const data = await fetch(
+        `${TMDB_API_URL}/movie/${movieId}/videos`,
+        API_OPTION
+      );
+      const json = await data.json();
+      // const filterData = json.results.filter((video) => (video.type = "Trailer"));
+      dispatch(addMovieTrailers(json.results[1]));
+    };
     fetchData();
-  }, []);
-  const fetchData = async () => {
-    const data = await fetch(
-      `${TMDB_API_URL}/movie/${movieId}/videos`,
-      API_OPTION
-    );
-    const json = await data.json();
-    // const filterData = json.results.filter((video) => (video.type = "Trailer"));
-    dispatch(addMovieTrailers(json.results[1]));
-  };
+  }, [movieId, dispatch]);
 };
 export default useMovieTrailer;

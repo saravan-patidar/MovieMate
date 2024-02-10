@@ -52,38 +52,6 @@ const Login = () => {
           setErrorMessage("Something went wrong with your credentials.");
           break;
       }
-      // createUserWithEmailAndPassword(
-      //   auth,
-      //   email.current.value,
-      //   password.current.value
-      // )
-      //   .then((userCredential) => {
-      //     const user = userCredential.user;
-      //     updateProfile(user, {
-      //       displayName: name.current.value,
-      //       photoURL: UserLogo,
-      //     })
-      //       .then(() => {
-      //         const { uid, email, displayName, photoURL } = auth.currentUser;
-      //         dispatch(
-      //           addUser({
-      //             uid: uid,
-      //             email: email,
-      //             displayName: displayName,
-      //             photoURL: photoURL,
-      //           })
-      //         );
-      //       })
-      //       .catch((error) => {
-      //         setErrorMessage(error.message);
-      //       });
-      //   })
-      //   .catch((error) => {
-      //     const errorCode = error.code;
-      //     const errorMessage = error.message;
-      //     console.log(errorCode);
-      //     setErrorMessage(errorCode + "-" + errorMessage);
-      //   });
     } else {
       const userCredential = await signIn(
         email.current.value,
@@ -108,7 +76,6 @@ const Login = () => {
   const handleToggleForm = () => {
     setIsSignIn(!isSignIn);
   };
-  console.log(lang[langKey]?.signIn, lang[langKey]?.now);
   return (
     <div>
       <Header />

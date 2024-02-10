@@ -6,7 +6,6 @@ import { MOVIES, TRENDING, TV_SERIES } from "../utils/constants";
 import useTopTrending from "../hooks/useTopTrending";
 import GptSearchPage from "./GptSearchPage";
 import { useSelector } from "react-redux";
-import MovieCardHover from "./MovieCardHover";
 
 const Browse = () => {
   const showGptSearch = useSelector((store) => store.gpt?.showGptSearch);

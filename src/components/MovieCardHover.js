@@ -23,6 +23,7 @@ const MovieCardHover = ({ movie, position }) => {
       <div className="h-2/4 w-full ">
         <img
           src={CDN_API + poster_path}
+          alt="Poster Img"
           className="h-full w-full object-cover rounded-lg"
         />
       </div>

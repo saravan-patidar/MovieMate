@@ -11,13 +11,12 @@ const signUpForm = async (email, password, name) => {
       password,
       name
     );
-    const updateUser = await updateProfile(credential.user, {
+    await updateProfile(credential.user, {
       displayName: name,
       photoURL: UserLogo,
     });
     response.user = credential.user;
   } catch (error) {
-    console.log(error.code);
     response.error = error;
   }
   return response;

@@ -6,18 +6,18 @@ import { addTrendingMovies, addTVShow } from "../utils/trendingSlice";
 const useTopTrending = (endUrl, trendingType, name) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    fetchData();
-  }, []);
+    const fetchData = async () => {
+      const data = await fetch(`${TMDB_API_URL}/${name}/${endUrl}`, API_OPTION);
+      const json = await data.json();
+      name === "trending"
+        ? dispatch(
+            addTrendingMovies({ trendingType, trendingData: json.results })
+          )
+        : dispatch(addTVShow({ trendingType, trendingData: json.results }));
+    };
 
-  const fetchData = async () => {
-    const data = await fetch(`${TMDB_API_URL}/${name}/${endUrl}`, API_OPTION);
-    const json = await data.json();
-    name === "trending"
-      ? dispatch(
-          addTrendingMovies({ trendingType, trendingData: json.results })
-        )
-      : dispatch(addTVShow({ trendingType, trendingData: json.results }));
-  };
+    fetchData();
+  }, [endUrl, trendingType, name, dispatch]);
 };
 export default useTopTrending;
 // https://api.themoviedb.org/3/movie/popular

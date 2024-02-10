@@ -2,7 +2,7 @@ import { GENRES } from "./constants";
 
 const getGenresName = (genreId) => {
   const genreName = [];
-  genreId.map((id) => {
+  genreId.forEach((id) => {
     const genre = GENRES.find((genres) => genres.id === id);
     genreName.push(genre?.name);
   });

@@ -13,14 +13,14 @@ const useMovies = (endUrl, movieType, genreId, languages) => {
     apiUrl += `&with_original_language=${languages}`;
   }
 
-  const movieApi = async () => {
-    const data = await fetch(apiUrl, API_OPTION);
-    const json = await data.json();
-    dispatch(addMovies({ movieType, movieData: json.results }));
-  };
-
   useEffect(() => {
+    const movieApi = async () => {
+      const data = await fetch(apiUrl, API_OPTION);
+      const json = await data.json();
+      dispatch(addMovies({ movieType, movieData: json.results }));
+    };
+
     movieApi();
-  }, []);
+  }, [movieType, apiUrl, dispatch]);
 };
 export default useMovies;
