@@ -32,7 +32,6 @@ const Browse = () => {
           <SecondaryContainer />
         </>
       )}
-      {/* <MovieCardHover /> */}
     </div>
   );
 };
