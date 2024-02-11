@@ -1,5 +1,5 @@
-# Netflix Gpt Project
-    The NetflixGPT project is a comprehensive video streaming platform that combines cutting-edge technologies
+# MovieMATE Project
+    The MovieMATE project is a comprehensive video streaming platform that combines cutting-edge technologies
     with user-centric design principles. By integrating features such as user authentication, seamless data management,
     responsive UI design, and personalized recommendations powered by AI, the platform offers an immersive and engaging
     viewing experience for users.
