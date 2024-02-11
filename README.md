@@ -4,7 +4,7 @@
     responsive UI design, and personalized recommendations powered by AI, the platform offers an immersive and engaging
     viewing experience for users.
 
-[View Demo](https://shravan-netfligpt.netlify.app/browse)NetflixGpt
+[View Demo](https://shravan-moviemate.netlify.app/)NetflixGpt
 
 ## Key Features:
   #### User Authentication:
