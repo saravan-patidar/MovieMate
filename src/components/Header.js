@@ -1,4 +1,4 @@
-import Logo from "../images/Netflix-GPT.png";
+import Logo from "../images/moviemate.png";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { deleteUser, onAuthStateChanged, signOut } from "firebase/auth";
